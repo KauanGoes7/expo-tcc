@@ -1,38 +1,32 @@
 // screens/HomeScreen.tsx
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native'; // Importe NavigationProp
-import { RootStackParamList } from '../types/navigation'; // Importe suas tipagens
-import { Colors, Fonts, Spacing } from '../styles/theme'; // Importa de theme.ts
-import Footer from '../components/Footer'; // Importa de Footer.tsx
+import { Colors, Fonts, Spacing } from '../styles/theme'; 
+import Footer from '../components/Footer'; 
 
-const HomeScreen = () => {
-  // Use a tipagem para o hook useNavigation
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+// Defina o tipo da prop onNavigate
+interface HomeScreenProps {
+  onNavigate: (screenName: string) => void;
+}
 
+const HomeScreen: React.FC<HomeScreenProps> = ({ onNavigate }) => {
   return (
     <View style={styles.container}>
       <View style={styles.mainContent}>
-        {/* Logo Principal "Agenda Corte" */}
         <Image
-          source={require('../assets/images/AgendaCorte.png')} // Caminho para sua logo principal
+          source={require('../assets/images/AgendaCorte.png')} 
           style={styles.mainLogo}
           resizeMode="contain"
         />
-
-        {/* Frase / Tagline */}
         <Text style={styles.tagline}>Estilo não se improvisa. Agende agora.</Text>
 
-        {/* Botão Agendar */}
         <TouchableOpacity
           style={styles.scheduleButton}
-          onPress={() => navigation.navigate('Servicos')} // O erro de tipagem será resolvido pelas tipagens
+          onPress={() => onNavigate('Servicos')} // Usa a prop onNavigate
         >
           <Text style={styles.scheduleButtonText}>Agendar</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Footer Fixo com "N" */}
       <Footer />
     </View>
   );
@@ -53,8 +47,8 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.xl * 2,
   },
   mainLogo: {
-    width: 200,
-    height: 200,
+    width: 200, 
+    height: 200, 
     marginBottom: Spacing.large,
   },
   tagline: {

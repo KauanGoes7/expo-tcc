@@ -3,34 +3,27 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 
-// Importe suas tipagens de navegação
-import { RootStackParamList } from './types/navigation'; 
+// Importe suas telas (agora elas receberão uma prop para navegação)
+import HomeScreen from './screens/HomeScreen';
+import ServicosScreen from './screens/ServicosScreen';
+import ApresentacaoScreen from './screens/ApresentacaoScreen';
+import AgendarDataScreen from './screens/AgendarDataScreen';
+import BarbeirosScreen from './screens/BarbeirosScreen';
+import ConfirmacaoAgendamentoScreen from './screens/ConfirmacaoAgendamentoScreen';
 
-// Importe suas telas (garantindo que estão como .tsx)
-import HomeScreen from './screens/HomeScreen.tsx';
-import ServicosScreen from './screens/ServicosScreen.tsx';
-// Adicione aqui as importações para as outras telas que você tem em 'screens/'
-import ApresentacaoScreen from './screens/ApresentacaoScreen.tsx';
-import AgendarDataScreen from './screens/AgendarDataScreen.tsx';
-import BarbeirosScreen from './screens/BarbeirosScreen.tsx';
-import ConfirmacaoAgendamentoScreen from './screens/ConfirmacaoAgendamentoScreen.tsx';
-
-// Impede que a tela de splashscreen seja ocultada automaticamente
 SplashScreen.preventAutoHideAsync();
 
-// Cria o Stack Navigator e o tipa com RootStackParamList
-const Stack = createStackNavigator<RootStackParamList>();
+// Defina os nomes das telas para o estado de navegação
+type ScreenNames = 'Home' | 'Servicos' | 'Apresentacao' | 'AgendarData' | 'Barbeiros' | 'ConfirmacaoAgendamento';
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState<ScreenNames>('Home'); // Estado para controlar a tela atual
 
   useEffect(() => {
     async function prepare() {
       try {
-        // Carregar as fontes aqui (certifique-se de ter os arquivos .ttf/otf na pasta assets/fonts)
         await Font.loadAsync({
           'PlayfairDisplay-Bold': require('./assets/fonts/PlayfairDisplay-Bold.ttf'),
           'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
@@ -47,40 +40,42 @@ export default function App() {
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
-      // Quando o aplicativo estiver pronto e as fontes carregadas, oculta a splashscreen
       await SplashScreen.hideAsync();
     }
   }, [appIsReady]);
 
   if (!appIsReady) {
-    // Se o aplicativo ainda não estiver pronto (fontes não carregadas), retorna null
-    // A splashscreen estará visível devido ao SplashScreen.preventAutoHideAsync()
     return null; 
   }
 
+  // Função para mudar a tela
+  const navigateTo = (screen: ScreenNames) => {
+    setCurrentScreen(screen);
+  };
+
+  // Renderiza a tela baseada no estado currentScreen
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case 'Home':
+        return <HomeScreen onNavigate={navigateTo} />;
+      case 'Servicos':
+        return <ServicosScreen onNavigate={navigateTo} />;
+      
+      default:
+        return <HomeScreen onNavigate={navigateTo} />; // Fallback
+    }
+  };
+
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Home" // A tela inicial será a HomeScreen
-          screenOptions={{
-            headerShown: false, // Oculta o header padrão do Stack Navigator em todas as telas
-          }}
-        >
-          {/* Definição das telas no Stack Navigator. Os nomes devem corresponder a RootStackParamList */}
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Servicos" component={ServicosScreen} />
-          <Stack.Screen name="Apresentacao" component={ApresentacaoScreen} />
-          <Stack.Screen name="AgendarData" component={AgendarDataScreen} />
-          <Stack.Screen name="Barbeiros" component={BarbeirosScreen} />
-          <Stack.Screen name="ConfirmacaoAgendamento" component={ConfirmacaoAgendamentoScreen} />
-          {/* Adicione outras telas aqui futuramente */}
-        </Stack.Navigator>
-      </NavigationContainer>
+    <View style={styles.container} onLayout={onLayoutRootView}>
+      {renderScreen()}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  // Estilos globais para o App.tsx, se necessário. Geralmente, este arquivo é mínimo.
+  container: {
+    flex: 1,
+    // Garante que o container ocupe toda a tela para as telas internas
+  },
 });

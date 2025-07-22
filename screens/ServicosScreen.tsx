@@ -1,12 +1,22 @@
-// screens/ServicosScreen.tsx
+// Exemplo: screens/ServicosScreen.tsx
+// (Aplique o mesmo padrão para ApresentacaoScreen.tsx, AgendarDataScreen.tsx, BarbeirosScreen.tsx, ConfirmacaoAgendamentoScreen.tsx)
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Colors } from '../styles/theme'; // Importa de theme.ts
+import { View, Text, StyleSheet, Button } from 'react-native'; // Importe Button
+import { Colors } from '../styles/theme'; 
 
-const ServicosScreen = () => {
+// Defina o tipo da prop onNavigate
+interface ScreenProps {
+  onNavigate: (screenName: string) => void;
+}
+
+const ServicosScreen: React.FC<ScreenProps> = ({ onNavigate }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Tela de Serviços (em construção)</Text>
+      {/* Exemplo de botão para voltar para Home */}
+      <Button title="Voltar para Home" onPress={() => onNavigate('Home')} />
+      {/* Exemplo de botão para ir para AgendarData */}
+      <Button title="Ir para Agendar Data" onPress={() => onNavigate('AgendarData')} />
     </View>
   );
 };
@@ -22,6 +32,7 @@ const styles = StyleSheet.create({
     color: Colors.textLight,
     fontSize: 20,
     fontFamily: 'Poppins-Regular',
+    marginBottom: 20, // Adiciona margem abaixo do texto
   },
 });
 
