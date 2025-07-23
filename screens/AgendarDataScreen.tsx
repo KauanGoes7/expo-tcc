@@ -1,48 +1,118 @@
 // screens/AgendarDataScreen.tsx
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { Colors, Fonts, Spacing } from '../styles/theme'; // Ajuste o caminho se necessário
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { Colors, Fonts, Spacing } from '../styles/theme';
 
 interface AgendarDataScreenProps {
-  // Tipagem atualizada, removendo 'Servicos'
   onNavigate: (screenName: 'Home' | 'Apresentacao' | 'AgendarData' | 'Barbeiros' | 'ConfirmacaoAgendamento' | 'CorteServicos' | 'BarbaServicos' | 'CabeloServicos') => void;
 }
 
 const AgendarDataScreen: React.FC<AgendarDataScreenProps> = ({ onNavigate }) => {
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+
+  // Dados mockados para os 5 dias úteis da semana
+  const dates = [
+    { id: '1', day: 'seg.', date: '28 de jul.' },
+    { id: '2', day: 'ter.', date: '29 de jul.' },
+    { id: '3', day: 'qua.', date: '30 de jul.' },
+    { id: '4', day: 'qui.', date: '31 de jul.' },
+    { id: '5', day: 'sex.', date: '01 de ago.' },
+    // Você pode adicionar mais datas se precisar de um range maior de 5 dias úteis
+  ];
+
+  const times = [
+    '09:00', '10:00', '11:00', '12:00', '14:00',
+    '15:00', '16:00', '17:00',
+  ];
+
+  const handleContinue = () => {
+    if (selectedDate && selectedTime) {
+      // Aqui você poderia passar os dados selecionados para a próxima tela
+      // por exemplo, usando um contexto ou um gerenciador de estado global.
+      onNavigate('ConfirmacaoAgendamento');
+    } else {
+      Alert.alert('Atenção', 'Por favor, selecione uma data e um horário para continuar.');
+    }
+  };
+
   return (
     <View style={styles.container}>
-      {/* Top Content (similar às outras telas de serviço) */}
+      {/* Top Content */}
       <View style={styles.topContentPadding}>
-        {/* Botão de Voltar para a tela anterior de serviços (BarbaServicos, CorteServicos ou CabeloServicos) */}
-        {/* Você pode querer uma lógica para saber de onde veio, mas por simplicidade, voltará para BarbaServicos */}
-        <TouchableOpacity onPress={() => onNavigate('BarbaServicos')} style={styles.backButton}>
+        <TouchableOpacity onPress={() => onNavigate('Barbeiros')} style={styles.backButton}>
           <Text style={styles.backButtonText}>{'<'}</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>AGENDAR DATA E HORA</Text>
-        <TouchableOpacity style={styles.profileButton}>
-          <Text style={styles.profileIcon}>👤</Text>
-        </TouchableOpacity>
+        <Text style={styles.headerTitle}>SELECIONE DATA E HORA</Text>
+        <View style={{ width: 40 }} /> {/* Espaçador para alinhar o título */}
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <Text style={styles.sectionTitle}>Selecione a Data:</Text>
-        {/* Aqui você adicionaria um seletor de data, por exemplo, de uma biblioteca como 'react-native-modern-datepicker' ou 'react-native-calendars' */}
-        <View style={styles.placeholderBox}>
-          <Text style={styles.placeholderText}>Espaço para Calendário / Seletor de Data</Text>
+        <Text style={styles.descriptionText}>
+          Escolha a data e o horário que melhor se encaixa na sua rotina.
+        </Text>
+
+        {/* Escolha a Data */}
+        <Text style={styles.sectionTitle}>Escolha a Data</Text>
+        <View style={styles.dateSelectionContainer}>
+          {dates.map((item) => (
+            <TouchableOpacity
+              key={item.id}
+              style={[
+                styles.dateItem,
+                selectedDate === item.id && styles.dateItemSelected
+              ]}
+              onPress={() => setSelectedDate(item.id)}
+            >
+              <Text style={[styles.dateItemDay, selectedDate === item.id && styles.dateItemTextSelected]}>
+                {item.day}
+              </Text>
+              <Text style={[styles.dateItemDate, selectedDate === item.id && styles.dateItemTextSelected]}>
+                {item.date}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
 
-        <Text style={styles.sectionTitle}>Selecione o Horário:</Text>
-        {/* Aqui você adicionaria seletores de horário */}
-        <View style={styles.placeholderBox}>
-          <Text style={styles.placeholderText}>Espaço para Horários Disponíveis</Text>
+        {/* Escolha o Horário */}
+        <Text style={styles.sectionTitle}>Escolha o Horário</Text>
+        <View style={styles.timeGrid}>
+          {times.map((time) => (
+            <TouchableOpacity
+              key={time}
+              style={[
+                styles.timeItem,
+                selectedTime === time && styles.timeItemSelected,
+                !selectedDate && styles.timeItemDisabled // Desabilita horários se a data não for selecionada
+              ]}
+              onPress={() => {
+                if (selectedDate) {
+                  setSelectedTime(time);
+                } else {
+                  Alert.alert('Atenção', 'Por favor, selecione uma data primeiro para ver os horários.');
+                }
+              }}
+              disabled={!selectedDate}
+            >
+              <Text style={[styles.timeItemText, selectedTime === time && styles.timeItemTextSelected]}>
+                {time}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
 
-        {/* Exemplo de botão para confirmar */}
+        {!selectedDate && (
+          <Text style={styles.timeSelectionMessage}>
+            Por favor, selecione uma data primeiro para ver os horários.
+          </Text>
+        )}
+
         <TouchableOpacity
-          style={styles.confirmButton}
-          onPress={() => onNavigate('ConfirmacaoAgendamento')}
+          style={[styles.continueButton, (!selectedDate || !selectedTime) && styles.continueButtonDisabled]}
+          onPress={handleContinue}
+          disabled={!selectedDate || !selectedTime}
         >
-          <Text style={styles.confirmButtonText}>Confirmar Agendamento</Text>
+          <Text style={styles.continueButtonText}>Continua</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
@@ -76,43 +146,108 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  profileButton: {
-    padding: Spacing.small,
-  },
-  profileIcon: {
-    color: Colors.textLight,
-    fontSize: 24,
-  },
   scrollViewContent: {
     paddingHorizontal: Spacing.medium,
     paddingBottom: Spacing.xl * 2,
   },
+  descriptionText: {
+    fontFamily: Fonts.body,
+    fontSize: 14,
+    color: Colors.textMuted,
+    textAlign: 'center',
+    marginBottom: Spacing.large,
+    lineHeight: 20,
+    paddingHorizontal: Spacing.medium,
+  },
   sectionTitle: {
-    fontFamily: Fonts.montserrat,
+    fontFamily: Fonts.heading,
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.textLight,
-    marginTop: Spacing.large,
-    marginBottom: Spacing.medium,
-  },
-  placeholderBox: {
-    backgroundColor: Colors.cardBackground,
-    borderRadius: 10,
-    padding: Spacing.large,
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: 150,
-    borderWidth: 1,
-    borderColor: Colors.borderColor,
+    textAlign: 'center',
     marginBottom: Spacing.large,
   },
-  placeholderText: {
+  dateSelectionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap',
+    marginBottom: Spacing.xl,
+    paddingHorizontal: Spacing.small,
+  },
+  dateItem: {
+    backgroundColor: Colors.cardBackground,
+    borderRadius: 10,
+    paddingVertical: Spacing.medium,
+    paddingHorizontal: Spacing.large,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: Colors.borderColor,
+    minWidth: 90,
+    
+    flexGrow: 1,
+    flexBasis: '18%', // Ajustado para tentar caber 5 em uma linha ou quebrar melhor
+  },
+  dateItemSelected: {
+    backgroundColor: Colors.accentCyan,
+    borderColor: Colors.selectedGreen,
+  },
+  dateItemDay: {
+    fontFamily: Fonts.montserrat,
+    fontSize: 14,
+    fontWeight: 'bold',
     color: Colors.textMuted,
+    
+  },
+  dateItemDate: {
+    fontFamily: Fonts.body,
+    fontSize: 16,
+    color: Colors.textLight,
+  },
+  dateItemTextSelected: {
+    color: Colors.buttonPrimaryText,
+  },
+  timeGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginBottom: Spacing.xl,
+  },
+  timeItem: {
+    backgroundColor: Colors.cardBackground,
+    borderRadius: 10,
+    paddingVertical: Spacing.small,
+    paddingHorizontal: Spacing.medium,
+    
+    width: 90,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.borderColor,
+  },
+  timeItemSelected: {
+    backgroundColor: Colors.accentCyan,
+    borderColor: Colors.selectedGreen,
+  },
+  timeItemText: {
+    fontFamily: Fonts.montserrat,
+    fontSize: 16,
+    color: Colors.textLight,
+  },
+  timeItemTextSelected: {
+    color: Colors.buttonPrimaryText,
+  },
+  timeItemDisabled: {
+    opacity: 0.5,
+  },
+  timeSelectionMessage: {
     fontFamily: Fonts.body,
     fontSize: 14,
+    color: Colors.textMuted,
     textAlign: 'center',
+    marginTop: -Spacing.medium,
+    marginBottom: Spacing.large,
   },
-  confirmButton: {
+  continueButton: {
     backgroundColor: Colors.accentCyan,
     paddingVertical: Spacing.medium,
     borderRadius: 50,
@@ -124,7 +259,10 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 5,
   },
-  confirmButtonText: {
+  continueButtonDisabled: {
+    
+  },
+  continueButtonText: {
     fontFamily: Fonts.body,
     fontSize: 18,
     fontWeight: '600',

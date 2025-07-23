@@ -1,7 +1,7 @@
 // screens/CabeloServicosScreen.tsx
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { Colors, Fonts, Spacing } from '../styles/theme'; // Ajuste o caminho para 'themes'
+import { Colors, Fonts, Spacing } from '../styles/theme'; // CORRIGIDO: de 'themes' para 'theme'
 
 interface CabeloServicosScreenProps {
   onNavigate: (screenName: 'Home' | 'Apresentacao' | 'AgendarData' | 'Barbeiros' | 'ConfirmacaoAgendamento' | 'CorteServicos' | 'BarbaServicos' | 'CabeloServicos') => void;
@@ -54,9 +54,9 @@ const CabeloServicosScreen: React.FC<CabeloServicosScreenProps> = ({ onNavigate 
           <TouchableOpacity style={styles.categoryButton} onPress={() => onNavigate('BarbaServicos')}>
             <Image source={require('../assets/servicos/beard 1.png')} style={styles.categoryIcon} />
           </TouchableOpacity>
-          {/* Categoria de Cabelo + Barba (usando barbearia 1.png do assets/servicos) - Borda verde indica que está selecionado */}
-          <View style={[styles.categoryButton, styles.selectedCategoryBorder]}>
-            <Image source={require('../assets/servicos/barbearia 1.png')} style={styles.categoryIcon} />
+          {/* Categoria de Cabelo + Barba (usando barbearia 1.png do assets/servicos) - Agora com fundo azul claro e borda verde */}
+          <View style={[styles.categoryButton, styles.selectedCategoryBorder, { backgroundColor: Colors.accentCyan }]}>
+            <Image source={require('../assets/servicos/barbearia 1.png')} style={[styles.categoryIcon, { tintColor: Colors.buttonPrimaryText }]} />
           </View>
         </View>
 
@@ -67,7 +67,6 @@ const CabeloServicosScreen: React.FC<CabeloServicosScreenProps> = ({ onNavigate 
               style={styles.serviceItem}
               onPress={() => setSelectedService(service.id)}
             >
-              {/* LÓGICA DO CÍRCULO AZUL CLARO (RÁDIO) */}
               <View style={[
                 styles.radioCircle,
                 selectedService === service.id && styles.radioCircleSelected
@@ -172,14 +171,14 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-  
+    
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
     borderColor: 'transparent',
   },
   selectedCategoryBorder: {
-    borderColor: Colors.selectedGreen, // Cor da borda para a categoria selecionada (Cabelo)
+    borderColor: Colors.selectedGreen, // Borda verde para a categoria selecionada
   },
   categoryIcon: {
     width: 50,
@@ -205,12 +204,12 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: Colors.accentCyan, // A cor da borda do círculo (azul claro)
+    borderColor: Colors.accentCyan,
     marginRight: Spacing.medium,
   },
   radioCircleSelected: {
-    backgroundColor: Colors.selectedGreen, // Cor verde para o preenchimento quando selecionado
-    borderColor: Colors.selectedGreen, // A borda também fica verde quando selecionado
+    backgroundColor: Colors.selectedGreen,
+    borderColor: Colors.selectedGreen,
   },
   serviceTextContent: {
     flex: 1,

@@ -1,19 +1,20 @@
 // screens/BarbeirosScreen.tsx
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { Colors, Fonts, Spacing } from '../styles/theme'; // Ajuste o caminho se necessário
+import React, { useState } from 'react'; // Importe useState
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { Colors, Fonts, Spacing } from '../styles/theme'; // Caminho corrigido para 'theme'
 
 interface BarbeirosScreenProps {
-  // Tipagem correta para a prop onNavigate
   onNavigate: (screenName: 'Home' | 'Apresentacao' | 'AgendarData' | 'Barbeiros' | 'ConfirmacaoAgendamento' | 'CorteServicos' | 'BarbaServicos' | 'CabeloServicos') => void;
 }
 
 const BarbeirosScreen: React.FC<BarbeirosScreenProps> = ({ onNavigate }) => {
-  // Dados de exemplo para barbeiros
+  const [selectedBarbeiroId, setSelectedBarbeiroId] = useState<string | null>(null); // Estado para controlar o barbeiro selecionado
+
+  // Dados de exemplo para barbeiros com suas imagens
   const barbeiros = [
-    { id: '1', nome: 'Barbeiro A', especialidade: 'Cortes Clássicos, Barba', rating: 5 },
-    { id: '2', nome: 'Barbeiro B', especialidade: 'Degradês Modernos, Desenhos', rating: 4.8 },
-    { id: '3', nome: 'Barbeiro C', especialidade: 'Cabelo Feminino, Tratamentos', rating: 4.9 },
+    { id: '1', nome: 'Rodrigo', especialidade: 'Cortes Clássicos, Barba', rating: 5, image: require('../assets/barbeiros/barbeiro 1.png') },
+    { id: '2', nome: 'Lucas', especialidade: 'Degradês Modernos, Desenhos', rating: 4.8, image: require('../assets/barbeiros/barbeiro 1.png') }, // Usando a mesma imagem para exemplo
+    { id: '3', nome: 'Marcelo', especialidade: 'Cabelo Feminino, Tratamentos', rating: 4.9, image: require('../assets/barbeiros/barbeiro 1.png') }, // Usando a mesma imagem para exemplo
   ];
 
   return (
@@ -23,24 +24,28 @@ const BarbeirosScreen: React.FC<BarbeirosScreenProps> = ({ onNavigate }) => {
         <TouchableOpacity onPress={() => onNavigate('BarbaServicos')} style={styles.backButton}>
           <Text style={styles.backButtonText}>{'<'}</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>NOSSOS BARBEIROS</Text>
+        <Text style={styles.headerTitle}>ESCOLHA O SEU</Text> {/* Título atualizado */}
         <TouchableOpacity style={styles.profileButton}>
           <Text style={styles.profileIcon}>👤</Text>
         </TouchableOpacity>
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <Text style={styles.descriptionTextBold}>BARBEIRO!</Text> {/* Subtítulo em negrito */}
         <Text style={styles.descriptionText}>
-          Conheça nossos profissionais! Escolha o barbeiro de sua preferência para agendar seu serviço.
+          Na nossa agenda de cortes, você pode selecionar o barbeiro que melhor combina com o seu estilo! Cada profissional tem suas especialidades e horários disponíveis.
         </Text>
 
-        {/* Links de Navegação (Serviços, Barbeiros) */}
+        {/* Links de Navegação (Serviços, Barbeiros, Contato) */}
         <View style={styles.navLinksContainer}>
           <TouchableOpacity onPress={() => onNavigate('BarbaServicos')}>
             <Text style={styles.navLink}>SERVIÇOS</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => onNavigate('Barbeiros')}>
             <Text style={styles.navLinkActive}>BARBEIROS</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => { /* Implementar navegação para Contato se houver */ }}>
+            <Text style={styles.navLink}>CONTATO</Text>
           </TouchableOpacity>
         </View>
 
@@ -49,22 +54,34 @@ const BarbeirosScreen: React.FC<BarbeirosScreenProps> = ({ onNavigate }) => {
           {barbeiros.map((barbeiro) => (
             <TouchableOpacity
               key={barbeiro.id}
-              style={styles.barbeiroItem}
-              onPress={() => {
-                // Ao clicar no barbeiro, você pode navegar para a tela de agendamento de data/hora
-                // e talvez passar o ID do barbeiro como parâmetro (se fosse usando react-navigation)
-                // Com o state manual, você pode armazenar o barbeiro selecionado em App.tsx ou usar um contexto
-                onNavigate('AgendarData');
-              }}
+              style={[
+                styles.barbeiroItem,
+                selectedBarbeiroId === barbeiro.id && styles.barbeiroItemSelected // Aplica estilo de seleção
+              ]}
+              onPress={() => setSelectedBarbeiroId(barbeiro.id)} // Define o barbeiro selecionado
             >
+              <View style={[
+                styles.barbeiroImageContainer,
+                selectedBarbeiroId === barbeiro.id && styles.barbeiroImageSelectedBorder // Borda verde para a imagem selecionada
+              ]}>
+                <Image source={barbeiro.image} style={styles.barbeiroImage} />
+              </View>
               <View style={styles.barbeiroInfo}>
                 <Text style={styles.barbeiroNome}>{barbeiro.nome}</Text>
-                <Text style={styles.barbeiroEspecialidade}>{barbeiro.especialidade}</Text>
+                {/* <Text style={styles.barbeiroEspecialidade}>{barbeiro.especialidade}</Text> */}
               </View>
-              <Text style={styles.barbeiroRating}>⭐ {barbeiro.rating}</Text>
+              {/* <Text style={styles.barbeiroRating}>⭐ {barbeiro.rating}</Text> */}
             </TouchableOpacity>
           ))}
         </View>
+
+        <TouchableOpacity
+          style={[styles.continueButton, !selectedBarbeiroId && styles.continueButtonDisabled]}
+          onPress={() => selectedBarbeiroId && onNavigate('AgendarData')}
+          disabled={!selectedBarbeiroId}
+        >
+          <Text style={styles.continueButtonText}>Continua</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -108,6 +125,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.medium,
     paddingBottom: Spacing.xl * 2,
   },
+  descriptionTextBold: { // Novo estilo para o "BARBEIRO!"
+    fontFamily: Fonts.heading,
+    fontSize: 24,
+    color: Colors.textLight,
+    textAlign: 'center',
+    marginBottom: Spacing.small,
+  },
   descriptionText: {
     fontFamily: Fonts.body,
     fontSize: 14,
@@ -147,24 +171,47 @@ const styles = StyleSheet.create({
   barbeiroItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     backgroundColor: Colors.cardBackground,
     borderRadius: 10,
-    padding: Spacing.medium,
+    paddingVertical: Spacing.medium, // Ajuste o padding para a altura da linha
+    paddingHorizontal: Spacing.medium,
     marginBottom: Spacing.medium,
     borderWidth: 1,
     borderColor: Colors.borderColor,
   },
+  barbeiroItemSelected: { // Estilo para o item da lista selecionado (se precisar de uma borda no card)
+    borderColor: Colors.selectedGreen,
+  },
+  barbeiroImageContainer: {
+    width: 80, // Tamanho do círculo
+    height: 80,
+    borderRadius: 40, // Metade da largura/altura para ser um círculo perfeito
+    backgroundColor: Colors.accentCyan, // Fundo azul claro para a imagem do barbeiro
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: Spacing.medium,
+    borderWidth: 2, // Borda inicial transparente
+    borderColor: 'transparent',
+  },
+  barbeiroImageSelectedBorder: { // Borda verde quando a imagem do barbeiro é selecionada
+    borderColor: Colors.selectedGreen,
+  },
+  barbeiroImage: {
+    width: 70, // Tamanho da imagem dentro do círculo
+    height: 70,
+    borderRadius: 35, // Para que a imagem também seja circular
+    resizeMode: 'contain', // Garante que a imagem se ajuste ao contêiner
+  },
   barbeiroInfo: {
-    flex: 1,
+    flex: 1, // Permite que o nome ocupe o espaço restante
   },
   barbeiroNome: {
     fontFamily: Fonts.montserrat,
-    fontSize: 18,
+    fontSize: 22, // Aumente o tamanho da fonte para o nome
     fontWeight: 'bold',
     color: Colors.textLight,
-    marginBottom: Spacing.small / 2,
   },
+  // Estes estilos não são usados na nova disposição, mas mantidos caso precise:
   barbeiroEspecialidade: {
     fontFamily: Fonts.body,
     fontSize: 14,
@@ -175,6 +222,27 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.selectedGreen,
     fontWeight: 'bold',
+  },
+  continueButton: {
+    backgroundColor: Colors.accentCyan,
+    paddingVertical: Spacing.medium,
+    borderRadius: 50,
+    alignItems: 'center',
+    marginTop: Spacing.xl,
+    shadowColor: 'rgba(0, 0, 0, 0.3)',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  continueButtonDisabled: {
+    
+  },
+  continueButtonText: {
+    fontFamily: Fonts.body,
+    fontSize: 18,
+    fontWeight: '600',
+    color: Colors.buttonPrimaryText,
   },
 });
 
