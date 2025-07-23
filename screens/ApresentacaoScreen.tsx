@@ -1,15 +1,28 @@
-// Exemplo: screens/ApresentacaoScreen.tsx
-// (Use este modelo para ApresentacaoScreen.tsx, AgendarDataScreen.tsx, BarbeirosScreen.tsx, ConfirmacaoAgendamentoScreen.tsx, Header.tsx, BackButton.tsx)
-
+// screens/ApresentacaoScreen.tsx
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-// Você pode importar seu tema aqui, se for usar estilos
-// import { Colors, Fonts, Spacing } from '../styles/theme'; 
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Colors, Fonts, Spacing } from '../styles/theme'; // Ajuste o caminho se necessário
 
-const NomeDaTela = () => { // <--- ALTERE ESTE NOME (Ex: ApresentacaoScreen, AgendarDataScreen, etc.)
+interface ApresentacaoScreenProps {
+  // Removido 'Servicos' e ajustado a tipagem para o App.tsx atualizado
+  onNavigate: (screenName: 'Home' | 'Apresentacao' | 'AgendarData' | 'Barbeiros' | 'ConfirmacaoAgendamento' | 'CorteServicos' | 'BarbaServicos' | 'CabeloServicos') => void;
+}
+
+const ApresentacaoScreen: React.FC<ApresentacaoScreenProps> = ({ onNavigate }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Olá da NomeDaTela!</Text> {/* <--- ALTERE ESTE TEXTO */}
+      <Image
+        source={require('../assets/images/AgendaCorte.png')} // Caminho da imagem do logo
+        style={styles.logo}
+        resizeMode="contain"
+      />
+      <Text style={styles.slogan}>Estilo não se improvisa. Agende agora.</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => onNavigate('BarbaServicos')} // Navega diretamente para BarbaServicos
+      >
+        <Text style={styles.buttonText}>Agendar</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -19,12 +32,39 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#1C1C1C', // Cor de fundo de exemplo
+    backgroundColor: Colors.backgroundDark, // Use a cor de fundo do seu tema
+    padding: Spacing.large,
   },
-  text: {
-    color: 'white', // Cor do texto de exemplo
-    fontSize: 24,
+  logo: {
+    width: '80%', // Ajuste o tamanho conforme necessário
+    height: 150, // Ajuste o tamanho conforme necessário
+    marginBottom: Spacing.xl * 2,
+  },
+  slogan: {
+    fontFamily: Fonts.heading, // Use sua fonte de título
+    fontSize: 20,
+    color: Colors.textLight, // Cor do texto clara
+    textAlign: 'center',
+    marginBottom: Spacing.xl * 2,
+  },
+  button: {
+    backgroundColor: Colors.accentCyan, // Cor de destaque para o botão
+    paddingVertical: Spacing.medium,
+    paddingHorizontal: Spacing.xl,
+    borderRadius: 50,
+    alignItems: 'center',
+    shadowColor: 'rgba(0, 0, 0, 0.3)',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  buttonText: {
+    fontFamily: Fonts.body, // Use sua fonte de corpo
+    fontSize: 18,
+    fontWeight: '600',
+    color: Colors.buttonPrimaryText, // Cor do texto do botão
   },
 });
 
-export default NomeDaTela; // <--- ALTERE ESTE NOME (Ex: ApresentacaoScreen, AgendarDataScreen, etc.)
+export default ApresentacaoScreen;

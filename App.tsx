@@ -1,33 +1,37 @@
 // App.tsx
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-// Importe suas telas (agora elas receberão uma prop para navegação)
+// IMPORTS DAS TELAS - REMOVA A EXTENSÃO ".tsx" AQUI PARA O BUNDLER RESOLVER MELHOR
+// E verifique se os nomes dos arquivos estão corretos (ex: HomeScreen.tsx, não HomeScreen.jsx)
 import HomeScreen from './screens/HomeScreen';
-import ServicosScreen from './screens/ServicosScreen';
 import ApresentacaoScreen from './screens/ApresentacaoScreen';
 import AgendarDataScreen from './screens/AgendarDataScreen';
 import BarbeirosScreen from './screens/BarbeirosScreen';
 import ConfirmacaoAgendamentoScreen from './screens/ConfirmacaoAgendamentoScreen';
+import CorteServicosScreen from './screens/CorteServicosScreen';
+import BarbaServicosScreen from './screens/BarbaServicosScreen';
+import CabeloServicosScreen from './screens/CabeloServicosScreen';
 
 SplashScreen.preventAutoHideAsync();
 
 // Defina os nomes das telas para o estado de navegação
-type ScreenNames = 'Home' | 'Servicos' | 'Apresentacao' | 'AgendarData' | 'Barbeiros' | 'ConfirmacaoAgendamento';
+// Garanta que todos os nomes de tela que você usa estão aqui
+type ScreenNames = 'Home' | 'Apresentacao' | 'AgendarData' | 'Barbeiros' | 'ConfirmacaoAgendamento' | 'CorteServicos' | 'BarbaServicos' | 'CabeloServicos';
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const [currentScreen, setCurrentScreen] = useState<ScreenNames>('Home'); // Estado para controlar a tela atual
+  const [currentScreen, setCurrentScreen] = useState<ScreenNames>('Apresentacao'); // Começa na tela de Apresentação
 
   useEffect(() => {
     async function prepare() {
       try {
         await Font.loadAsync({
-          'PlayfairDisplay-Bold': require('./assets/fonts/PlayfairDisplay-Bold.ttf'),
-          'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
-          'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
+          // Verifique os caminhos e nomes das suas fontes. Ex:
+          // 'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
+          // 'OpenSans-Regular': require('./assets/fonts/OpenSans-Regular.ttf'),
         });
       } catch (e) {
         console.warn(e);
@@ -35,6 +39,7 @@ export default function App() {
         setAppIsReady(true);
       }
     }
+
     prepare();
   }, []);
 
@@ -45,24 +50,33 @@ export default function App() {
   }, [appIsReady]);
 
   if (!appIsReady) {
-    return null; 
+    return null;
   }
 
-  // Função para mudar a tela
   const navigateTo = (screen: ScreenNames) => {
     setCurrentScreen(screen);
   };
 
-  // Renderiza a tela baseada no estado currentScreen
   const renderScreen = () => {
     switch (currentScreen) {
       case 'Home':
         return <HomeScreen onNavigate={navigateTo} />;
-      case 'Servicos':
-        return <ServicosScreen onNavigate={navigateTo} />;
-      
+      case 'Apresentacao':
+        return <ApresentacaoScreen onNavigate={navigateTo} />;
+      case 'AgendarData':
+        return <AgendarDataScreen onNavigate={navigateTo} />;
+      case 'Barbeiros':
+        return <BarbeirosScreen onNavigate={navigateTo} />;
+      case 'ConfirmacaoAgendamento':
+        return <ConfirmacaoAgendamentoScreen onNavigate={navigateTo} />;
+      case 'CorteServicos':
+        return <CorteServicosScreen onNavigate={navigateTo} />;
+      case 'BarbaServicos':
+        return <BarbaServicosScreen onNavigate={navigateTo} />;
+      case 'CabeloServicos':
+        return <CabeloServicosScreen onNavigate={navigateTo} />;
       default:
-        return <HomeScreen onNavigate={navigateTo} />; // Fallback
+        return <Text>Tela não encontrada: {currentScreen}</Text>;
     }
   };
 
@@ -76,6 +90,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // Garante que o container ocupe toda a tela para as telas internas
   },
 });
