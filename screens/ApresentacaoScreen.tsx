@@ -1,4 +1,3 @@
-// screens/ApresentacaoScreen.tsx
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Colors, Fonts, Spacing } from '../styles/theme'; // Ajuste o caminho se necessário
@@ -41,7 +40,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xl * 2,
   },
   slogan: {
-    fontFamily: Fonts.heading, // Use sua fonte de título
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 20,
     color: Colors.textLight, // Cor do texto clara
     textAlign: 'center',
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   buttonText: {
-    fontFamily: Fonts.body, // Use sua fonte de corpo
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 18,
     fontWeight: '600',
     color: Colors.buttonPrimaryText, // Cor do texto do botão

@@ -1,4 +1,3 @@
-// screens/ConfirmacaoAgendamentoScreen.tsx
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Colors, Fonts, Spacing } from '../styles/theme'; // Ajuste o caminho para 'theme'
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.xl * 2,
   },
   headerTitle: {
-    fontFamily: Fonts.heading,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 24,
     fontWeight: 'bold',
     color: Colors.textLight,
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
     
   },
   successText: {
-    fontFamily: Fonts.heading,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 24,
     fontWeight: 'bold',
     color: Colors.accentCyan,
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.borderColor,
   },
   alertText: {
-    fontFamily: Fonts.body,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 14,
     color: Colors.textMuted,
     textAlign: 'center',
@@ -139,20 +138,21 @@ const styles = StyleSheet.create({
   detailIcon: {
     fontSize: 28, // Tamanho dos emojis
     marginRight: Spacing.medium,
+    fontFamily: 'Arial', // Changed to Arial (for consistency, though emojis might use system font)
   },
   detailLabel: {
-    fontFamily: Fonts.body,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 14,
     color: Colors.textMuted,
   },
   detailValue: {
-    fontFamily: Fonts.montserrat,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 16,
     fontWeight: '600',
     color: Colors.textLight,
   },
   thankYouText: {
-    fontFamily: Fonts.body,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 14,
     color: Colors.textMuted,
     textAlign: 'center',
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   newAppointmentButtonText: {
-    fontFamily: Fonts.body,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 18,
     fontWeight: '600',
     color: Colors.buttonPrimaryText,

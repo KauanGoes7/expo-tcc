@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.large, // Espaço entre a logo e a tagline
   },
   tagline: {
-    fontFamily: Fonts.heading,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 20, // Mantido o tamanho diminuído
     fontWeight: '700',
     color: Colors.textLight,
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   scheduleButtonText: { 
-    fontFamily: Fonts.body,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 18, // Mantido o tamanho diminuído
     fontWeight: '600',
     color: Colors.buttonPrimaryText,

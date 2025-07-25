@@ -1,4 +1,3 @@
-// screens/BarbeirosScreen.tsx
 import React, { useState } from 'react'; // Importe useState
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { Colors, Fonts, Spacing } from '../styles/theme'; // Caminho corrigido para 'theme'
@@ -107,10 +106,11 @@ const styles = StyleSheet.create({
     color: Colors.textLight,
     fontSize: 24,
     fontWeight: 'bold',
+    fontFamily: 'Arial', // Changed to Arial
   },
   headerTitle: {
     color: Colors.textLight,
-    fontFamily: Fonts.heading,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -120,20 +120,21 @@ const styles = StyleSheet.create({
   profileIcon: {
     color: Colors.textLight,
     fontSize: 24,
+    fontFamily: 'Arial', // Changed to Arial
   },
   scrollViewContent: {
     paddingHorizontal: Spacing.medium,
     paddingBottom: Spacing.xl * 2,
   },
   descriptionTextBold: { // Novo estilo para o "BARBEIRO!"
-    fontFamily: Fonts.heading,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 24,
     color: Colors.textLight,
     textAlign: 'center',
     marginBottom: Spacing.small,
   },
   descriptionText: {
-    fontFamily: Fonts.body,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 14,
     color: Colors.textMuted,
     textAlign: 'center',
@@ -150,14 +151,14 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.small,
   },
   navLink: {
-    fontFamily: Fonts.montserrat,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 16,
     color: Colors.textMuted,
     fontWeight: 'bold',
     paddingVertical: Spacing.small,
   },
   navLinkActive: {
-    fontFamily: Fonts.montserrat,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 16,
     color: Colors.accentCyan,
     fontWeight: 'bold',
@@ -206,19 +207,19 @@ const styles = StyleSheet.create({
     flex: 1, // Permite que o nome ocupe o espaço restante
   },
   barbeiroNome: {
-    fontFamily: Fonts.montserrat,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 22, // Aumente o tamanho da fonte para o nome
     fontWeight: 'bold',
     color: Colors.textLight,
   },
   // Estes estilos não são usados na nova disposição, mas mantidos caso precise:
   barbeiroEspecialidade: {
-    fontFamily: Fonts.body,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 14,
     color: Colors.textMuted,
   },
   barbeiroRating: {
-    fontFamily: Fonts.montserrat,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 16,
     color: Colors.selectedGreen,
     fontWeight: 'bold',
@@ -239,7 +240,7 @@ const styles = StyleSheet.create({
     
   },
   continueButtonText: {
-    fontFamily: Fonts.body,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 18,
     fontWeight: '600',
     color: Colors.buttonPrimaryText,

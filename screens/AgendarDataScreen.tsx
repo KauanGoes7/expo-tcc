@@ -1,4 +1,3 @@
-// screens/AgendarDataScreen.tsx
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { Colors, Fonts, Spacing } from '../styles/theme';
@@ -139,10 +138,11 @@ const styles = StyleSheet.create({
     color: Colors.textLight,
     fontSize: 24,
     fontWeight: 'bold',
+    fontFamily: 'Arial', // Changed to Arial
   },
   headerTitle: {
     color: Colors.textLight,
-    fontFamily: Fonts.heading,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.xl * 2,
   },
   descriptionText: {
-    fontFamily: Fonts.body,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 14,
     color: Colors.textMuted,
     textAlign: 'center',
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.medium,
   },
   sectionTitle: {
-    fontFamily: Fonts.heading,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.textLight,
@@ -193,14 +193,14 @@ const styles = StyleSheet.create({
     borderColor: Colors.selectedGreen,
   },
   dateItemDay: {
-    fontFamily: Fonts.montserrat,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 14,
     fontWeight: 'bold',
     color: Colors.textMuted,
     
   },
   dateItemDate: {
-    fontFamily: Fonts.body,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 16,
     color: Colors.textLight,
   },
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.selectedGreen,
   },
   timeItemText: {
-    fontFamily: Fonts.montserrat,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 16,
     color: Colors.textLight,
   },
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   timeSelectionMessage: {
-    fontFamily: Fonts.body,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 14,
     color: Colors.textMuted,
     textAlign: 'center',
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     
   },
   continueButtonText: {
-    fontFamily: Fonts.body,
+    fontFamily: 'Arial', // Changed to Arial
     fontSize: 18,
     fontWeight: '600',
     color: Colors.buttonPrimaryText,
