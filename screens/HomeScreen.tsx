@@ -12,6 +12,20 @@ interface HomeScreenProps {
 const HomeScreen: React.FC<HomeScreenProps> = ({ onNavigate }) => {
   return (
     <View style={styles.container}>
+      {/* Cabeçalho Superior - Adaptativo para celular */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => console.log("Menu button pressed")} style={styles.menuButton}>
+          {/* Você pode usar um ícone de biblioteca ou um simples Text */}
+          <Text style={styles.menuIcon}>☰</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => onNavigate('Apresentacao')}
+          style={styles.apresentacaoLink}
+        >
+          <Text style={styles.apresentacaoText}>APRESENTAÇÃO</Text>
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.mainContent}>
         {/* Logo Principal "Agenda Corte" */}
         <Image
@@ -20,10 +34,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onNavigate }) => {
           resizeMode="contain"
         />
 
-        {/* Frase / Tagline - AGORA ESTÁ IMEDIATAMENTE ABAIXO DA LOGO */}
-        <Text style={styles.tagline}>Estilo não se improvisa. Agende agora.</Text>
+        {/* Frase / Tagline - Separadas em duas linhas */}
+        <Text style={styles.tagline}>Estilo não se improvisa.</Text>
+        <Text style={styles.taglineSecondary}>Agende agora.</Text>
 
-        {/* Botão Agendar - AGORA ESTÁ IMEDIATAMENTE ABAIXO DA TAGLINE */}
+        {/* Botão Agendar */}
         <TouchableOpacity
           style={styles.scheduleButton}
           onPress={() => onNavigate('Servicos')} // Usa a prop onNavigate
@@ -42,24 +57,61 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.backgroundDark,
+    // Removido alignItems e justifyContent do container para permitir o header na parte superior
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Alinha itens para os cantos
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: Spacing.medium,
+    paddingTop: Spacing.xl * 1.5, // Espaçamento superior para não colar na status bar
+    paddingBottom: Spacing.small,
+    width: '100%', // Garante que o cabeçalho ocupe toda a largura
+  },
+  menuButton: {
+    padding: Spacing.small,
+  },
+  menuIcon: {
+    color: Colors.textLight,
+    fontSize: 24,
+    fontFamily: 'Arial', // Consistente com outros textos
+    fontWeight: 'bold',
+  },
+  apresentacaoLink: {
+    padding: Spacing.small,
+  },
+  apresentacaoText: {
+    fontFamily: 'Arial', // Consistente com outros textos
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: Colors.textLight,
   },
   mainContent: {
-    flex: 1,
+    flex: 1, // Permite que o conteúdo principal ocupe o espaço restante
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: Spacing.medium,
-    paddingBottom: Spacing.xl * 2,
+    // Não precisa de paddingBottom tão grande aqui se o footer é fixo
   },
   mainLogo: {
-    width: 200,
-    height: 200,
-    marginBottom: Spacing.large, // Espaço entre a logo e a tagline
+    width: 300,
+    height: 250,
+    marginBottom: Spacing.large,
   },
   tagline: {
-    fontFamily: 'Arial', // Changed to Arial
-    fontSize: 20, // Mantido o tamanho diminuído
+    fontFamily: 'Arial',
+    fontSize: 20,
+    fontWeight: '700',
+    color: Colors.textLight,
+    textAlign: 'center',
+    marginBottom: Spacing.small, // Espaço entre as duas linhas da tagline
+    textShadowColor: 'rgba(0, 0, 0, 0.6)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
+  },
+  taglineSecondary: {
+    fontFamily: 'Arial',
+    fontSize: 20,
     fontWeight: '700',
     color: Colors.textLight,
     textAlign: 'center',
@@ -80,8 +132,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   scheduleButtonText: { 
-    fontFamily: 'Arial', // Changed to Arial
-    fontSize: 18, // Mantido o tamanho diminuído
+    fontFamily: 'Arial',
+    fontSize: 18,
     fontWeight: '600',
     color: Colors.buttonPrimaryText,
   },

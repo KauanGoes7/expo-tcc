@@ -23,14 +23,14 @@ const BarbeirosScreen: React.FC<BarbeirosScreenProps> = ({ onNavigate }) => {
         <TouchableOpacity onPress={() => onNavigate('BarbaServicos')} style={styles.backButton}>
           <Text style={styles.backButtonText}>{'<'}</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>ESCOLHA O SEU</Text> {/* Título atualizado */}
+        <Text style={styles.headerTitle}>ESCOLHA O SEU BARBEIRO</Text> {/* Título atualizado */}
         <TouchableOpacity style={styles.profileButton}>
-          <Text style={styles.profileIcon}>👤</Text>
+          <Text style={styles.profileIcon}></Text>
         </TouchableOpacity>
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <Text style={styles.descriptionTextBold}>BARBEIRO!</Text> {/* Subtítulo em negrito */}
+        
         <Text style={styles.descriptionText}>
           Na nossa agenda de cortes, você pode selecionar o barbeiro que melhor combina com o seu estilo! Cada profissional tem suas especialidades e horários disponíveis.
         </Text>
@@ -43,9 +43,7 @@ const BarbeirosScreen: React.FC<BarbeirosScreenProps> = ({ onNavigate }) => {
           <TouchableOpacity onPress={() => onNavigate('Barbeiros')}>
             <Text style={styles.navLinkActive}>BARBEIROS</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { /* Implementar navegação para Contato se houver */ }}>
-            <Text style={styles.navLink}>CONTATO</Text>
-          </TouchableOpacity>
+        
         </View>
 
         {/* Lista de Barbeiros */}

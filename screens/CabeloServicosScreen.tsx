@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { Colors, Fonts, Spacing } from '../styles/theme'; // CORRIGIDO: de 'themes' para 'theme'
+import { Colors, Fonts, Spacing } from '../styles/theme';
 
 interface CabeloServicosScreenProps {
   onNavigate: (screenName: 'Home' | 'Apresentacao' | 'AgendarData' | 'Barbeiros' | 'ConfirmacaoAgendamento' | 'CorteServicos' | 'BarbaServicos' | 'CabeloServicos') => void;
@@ -23,7 +23,7 @@ const CabeloServicosScreen: React.FC<CabeloServicosScreenProps> = ({ onNavigate 
         </TouchableOpacity>
         <Text style={styles.headerTitle}>BEM VINDO USER!</Text>
         <TouchableOpacity style={styles.profileButton}>
-          <Text style={styles.profileIcon}>👤</Text>
+          <Text style={styles.profileIcon}></Text>
         </TouchableOpacity>
       </View>
 
@@ -38,9 +38,6 @@ const CabeloServicosScreen: React.FC<CabeloServicosScreenProps> = ({ onNavigate 
           </TouchableOpacity>
           <TouchableOpacity onPress={() => onNavigate('Barbeiros')}>
             <Text style={styles.navLink}>BARBEIROS</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { /* Implementar navegação para Contato se houver */ }}>
-            <Text style={styles.navLink}>CONTATO</Text>
           </TouchableOpacity>
         </View>
 
@@ -97,7 +94,7 @@ const styles = StyleSheet.create({
   },
   topContentPadding: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between', // Changed to space-between
     alignItems: 'center',
     paddingHorizontal: Spacing.medium,
     paddingTop: Spacing.xl * 1.5,
@@ -110,28 +107,29 @@ const styles = StyleSheet.create({
     color: Colors.textLight,
     fontSize: 24,
     fontWeight: 'bold',
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
   },
   headerTitle: {
     color: Colors.textLight,
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 18,
     fontWeight: 'bold',
+    // Removed flex and marginLeft to match the BarbaServicosScreen layout
   },
-  profileButton: {
+  profileButton: { // Re-added profileButton styles
     padding: Spacing.small,
   },
-  profileIcon: {
+  profileIcon: { // Re-added profileIcon styles
     color: Colors.textLight,
     fontSize: 24,
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
   },
   scrollViewContent: {
     paddingHorizontal: Spacing.medium,
     paddingBottom: Spacing.xl * 2,
   },
   descriptionText: {
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 14,
     color: Colors.textMuted,
     textAlign: 'center',
@@ -148,14 +146,14 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.small,
   },
   navLink: {
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 16,
     color: Colors.textMuted,
     fontWeight: 'bold',
     paddingVertical: Spacing.small,
   },
   navLinkActive: {
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 16,
     color: Colors.accentCyan,
     fontWeight: 'bold',
@@ -179,7 +177,7 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   selectedCategoryBorder: {
-    borderColor: Colors.selectedGreen, // Borda verde para a categoria selecionada
+    borderColor: Colors.selectedGreen,
   },
   categoryIcon: {
     width: 50,
@@ -216,14 +214,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   serviceTitle: {
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 16,
     fontWeight: 'bold',
     color: Colors.textLight,
     
   },
   serviceDescription: {
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 12,
     color: Colors.textMuted,
   },
@@ -243,7 +241,7 @@ const styles = StyleSheet.create({
     
   },
   continueButtonText: {
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 18,
     fontWeight: '600',
     color: Colors.buttonPrimaryText,

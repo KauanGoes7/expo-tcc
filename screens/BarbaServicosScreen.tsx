@@ -23,7 +23,7 @@ const BarbaServicosScreen: React.FC<BarbaServicosScreenProps> = ({ onNavigate })
         </TouchableOpacity>
         <Text style={styles.headerTitle}>BEM VINDO USER!</Text>
         <TouchableOpacity style={styles.profileButton}>
-          <Text style={styles.profileIcon}>👤</Text>
+          <Text style={styles.profileIcon}></Text>
         </TouchableOpacity>
       </View>
 
@@ -39,9 +39,7 @@ const BarbaServicosScreen: React.FC<BarbaServicosScreenProps> = ({ onNavigate })
           <TouchableOpacity onPress={() => onNavigate('Barbeiros')}>
             <Text style={styles.navLink}>BARBEIROS</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { /* Implementar navegação para Contato se houver */ }}>
-            <Text style={styles.navLink}>CONTATO</Text>
-          </TouchableOpacity>
+         
         </View>
 
         <View style={styles.serviceCategoryButtons}>

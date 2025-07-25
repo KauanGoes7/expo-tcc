@@ -138,11 +138,11 @@ const styles = StyleSheet.create({
     color: Colors.textLight,
     fontSize: 24,
     fontWeight: 'bold',
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
   },
   headerTitle: {
     color: Colors.textLight,
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.xl * 2,
   },
   descriptionText: {
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 14,
     color: Colors.textMuted,
     textAlign: 'center',
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.medium,
   },
   sectionTitle: {
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.textLight,
@@ -169,38 +169,35 @@ const styles = StyleSheet.create({
   },
   dateSelectionContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between', // Changed to space-between for even distribution
     flexWrap: 'wrap',
     marginBottom: Spacing.xl,
-    paddingHorizontal: Spacing.small,
+    paddingHorizontal: 0, // Removed extra padding here
   },
   dateItem: {
     backgroundColor: Colors.cardBackground,
     borderRadius: 10,
-    paddingVertical: Spacing.medium,
-    paddingHorizontal: Spacing.large,
+    paddingVertical: Spacing.small, // Reduced vertical padding
+    paddingHorizontal: Spacing.small, // Reduced horizontal padding
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: Colors.borderColor,
-    minWidth: 90,
-    
-    flexGrow: 1,
-    flexBasis: '18%', // Ajustado para tentar caber 5 em uma linha ou quebrar melhor
+    width: '32%', // Adjust width to fit 3 items per row with some gap
+    marginBottom: Spacing.small, // Add margin bottom for spacing between rows
   },
   dateItemSelected: {
     backgroundColor: Colors.accentCyan,
     borderColor: Colors.selectedGreen,
   },
   dateItemDay: {
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 14,
     fontWeight: 'bold',
     color: Colors.textMuted,
-    
   },
   dateItemDate: {
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 16,
     color: Colors.textLight,
   },
@@ -212,13 +209,13 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center',
     marginBottom: Spacing.xl,
+    gap: Spacing.small, // Use gap for consistent spacing (React Native 0.71+)
   },
   timeItem: {
     backgroundColor: Colors.cardBackground,
     borderRadius: 10,
     paddingVertical: Spacing.small,
     paddingHorizontal: Spacing.medium,
-    
     width: 90,
     alignItems: 'center',
     borderWidth: 1,
@@ -229,7 +226,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.selectedGreen,
   },
   timeItemText: {
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 16,
     color: Colors.textLight,
   },
@@ -240,7 +237,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   timeSelectionMessage: {
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 14,
     color: Colors.textMuted,
     textAlign: 'center',
@@ -260,10 +257,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   continueButtonDisabled: {
-    
+    opacity: 0.6, // Dim the button when disabled
   },
   continueButtonText: {
-    fontFamily: 'Arial', // Changed to Arial
+    fontFamily: 'Arial',
     fontSize: 18,
     fontWeight: '600',
     color: Colors.buttonPrimaryText,
